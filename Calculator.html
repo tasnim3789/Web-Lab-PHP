@@ -1,0 +1,52 @@
+<html>
+	<head>
+	<title>JavaScript</title>
+	</head>
+	<body>	
+	<form>
+		<input type="text" id="f_num" placeholder="Enter Your First Number"><br><br>
+		<input type="text" id="s_num" placeholder="Enter Your Second Number"><br><br>
+		
+		
+		<input type="submit" value="+" onclick="add()">
+		<input type="submit" value="-" onclick="sub()">
+		<input type="submit" value="*" onclick="mul()">
+		<input type="submit" value="/" onclick="div()">
+	
+	</form>
+
+	
+	<script>		
+	function add(){
+		var a=parseInt(document.getElementById("f_num").value);
+		var b=parseInt(document.getElementById("s_num").value);
+		
+		document.write(a+b);
+	}
+		
+	function sub(){
+		var a=parseInt(document.getElementById("f_num").value);
+		var b=parseInt(document.getElementById("s_num").value);
+		
+		document.write(a-b);
+	}
+	function mul(){
+		var a=parseInt(document.getElementById("f_num").value);
+		var b=parseInt(document.getElementById("s_num").value);
+		
+		document.write(a*b);
+	}
+		
+	function div(){
+		var a=parseInt(document.getElementById("f_num").value);
+		var b=parseInt(document.getElementById("s_num").value);
+		
+		document.write(a/b);
+	}	
+		
+		
+		
+	</script>
+	</body>
+
+</html>

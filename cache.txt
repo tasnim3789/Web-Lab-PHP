@@ -1,0 +1,242 @@
+<?php
+	//echo "Hello world"."<br>";
+	
+	//$a=10.12;
+	//$b=20;
+	//echo $a+$b;
+	
+	for($i=0;$i<=20;$i++){
+		echo $i."<br>";
+	}
+	//while loop
+	$x = 1;
+	while($x <= 5) {
+	  echo $x."<br>";
+	  $x++;
+	}
+//d0-while loop
+$x = 1;
+do {
+  echo "The number is: $x <br>";
+  $x++;
+} 
+while ($x <= 5);
+
+
+	//$mark=40;
+	//if($mark>=40){
+	//	echo "pass";
+	//}
+	//else{
+	//	echo "fail";
+	//}
+		/*
+	
+	$taka=10000;
+	if($taka>=5000){
+		echo "eider market bhalo hbe";
+	}
+	else if($taka<5000 && $taka>=3000){
+		echo "motamoti bhalo";
+	}
+	else{
+		echo "tmi gorib";
+	}*/
+	
+		/*
+	$mark=80;
+	if($mark<=100 && $mark>=80){
+		echo "A+";
+	}
+	else if($mark<=79 && $mark>=65){
+		echo "A";
+	}
+	else if($mark<=64 && $mark>=60){
+		echo "A-";
+	}
+	else if($mark<=59 && $mark>=55){
+		echo "B+";
+	}
+	else if($mark<=54 && $mark>=50){
+		echo "B";
+	}
+	else if($mark<=49 && $mark>=45){
+		echo "C";
+	}
+	else if($mark<=44 && $mark>=40){
+		echo "D";
+	}
+	else if($mark<=39 && $mark>=0){
+		echo "F";
+	}
+	else{
+		echo "Invalid input";
+	}
+
+	
+//function
+	function add(){
+		echo 20+30;
+	}	
+	add();
+?>
+
+//php call
+
+<?php
+	function title(){
+		echo "This is PHP title";
+	}	
+	function content(){
+		echo "This is demo content"."<br>"."content";
+	}
+
+?>
+<html>
+	<head>
+	<title><?php title(); ?></title>
+	</head>
+	
+	<body>
+	    <?php content(); ?>
+	</body>
+
+</html>
+
+
+
+
+
+<?php
+if(isset($_POST['register'])) {
+	$firstname=$_POST['f_name'];
+	$lastname=$_POST['l_roll'];
+	$password=$_POST['p_word'];	
+	$gmail=$_POST['gmail'];	
+	$cgpa=$_POST['cgpa'];	
+	$roll=$_POST['roll'];
+    
+	$con=mysqli_connect('localhost','root','','diu');
+	//con variable call korbo database connect kora lagle
+	
+	$query=mysqli_query($con,"insert into cse(firstname,lastname,password,gmail,cgpa,roll) 
+	values('$firstname','$lastname','$password','$gmail','$cgpa','$roll')");
+	//table er sathe connect //$con, mane database er vitore table e
+	
+	if($query){ //qery sotto hoy
+		echo "Data inserted Successfully";
+	}
+	else{
+		echo "Data inserted failed";
+	}
+}
+?>
+
+<html>
+	<head>
+	</head>
+	<body>
+
+	<form method="post" action="">
+		<input type="text" name="f_name" placeholder="Enter Your First Name"><br></br>
+		<input type="text" name="l_roll" placeholder="Enter Your Last Name"><br></br>
+		<input type="text" name="p_word" placeholder="Enter Your Password"><br></br>
+		<input type="text" name="gmail" placeholder="Enter Your Gmail"><br></br>	
+		<input type="text" name="cgpa" placeholder="Enter Your Cgpa"><br></br>
+		<input type="text" name="roll" placeholder="Enter Your Roll"><br></br>		
+		<input type="submit" name="register"  value="Register"><br></br>
+	</form>
+	</body>
+	
+</html>
+
+
+
+
+<html>
+<head>
+<title> Display Data</title>
+</head>
+
+<body>
+ <table>
+    <tr>
+	<th>Id</th>
+	<th>First Name</th>
+	<th>Last Name</th>
+	</tr>
+	
+	<?php
+	$con=mysqli_connect('localhost','root','','buet');
+    $result=mysqli_query($con,"select * from cse");
+	while($row=mysqli_fetch_assoc($result)):
+	?>
+	
+	<tr>
+	<td><?php echo $row['id']; ?></td>
+	<td><?php echo $row['fname']; ?></td>
+	<td><?php echo $row['lname']; ?></td>
+	<td> <a href="delete.php?deleteid=<?php echo $row['id'];?>">Delete</a></td>
+	<td> <a href="update.php?updateid=<?php echo $row['id'];?>">Update</a></td>
+	</tr>
+	<?php  endwhile; ?>
+ </table>
+</body>
+</html>
+
+
+<?php
+$did=$_GET['deleteid'];
+$con=mysqli_connect('localhost','root','','buet');
+$result=mysqli_query($con,"delete from cse where id='$did'");
+if ($result){
+	echo "delete successfully";
+}
+else{
+	echo "failed";
+}
+
+?>
+
+
+
+
+<?php
+$uid=$_GET['updateid'];
+$con=mysqli_connect('localhost','root','','buet');
+$result=mysqli_query($con,"select * from cse where id='$uid'");
+$row=mysqli_fetch_assoc($result);
+$firstname=$row['fname'];
+$lastname=$row['lname'];
+
+
+
+if (isset($_POST['update'])){
+	$first=$_POST['firstname'];
+    $last=$_POST['lastname'];
+    $con=mysqli_connect('localhost','root','','buet');
+    $query=mysqli_query($con,"update cse set id='$uid',fname='$first',lname='$last' where id='$uid'");
+
+
+if ($query){
+	echo "update successfully";
+}
+else{
+	echo"hoi ni";
+}
+}
+?>
+<html>
+<head>
+<title>update form</title>
+</head>
+<body>
+<form method="post" action="">
+<input type ="text" name="firstname" value="<?php echo $firstname;?>"><br><br>
+<input type ="text" name="lastname" value= "<?php echo $lastname;?>"><br><br>
+<input type ="submit" name="update" value="update"><br><br>
+  
+</form>
+ 
+</body>
+</html>
